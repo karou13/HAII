@@ -329,10 +329,7 @@ function ensureDefaultWritingBlocks(p){
  let order=p.prompt_order[0].order;
  // Update the original built-in default without overwriting user edits.
  const lengthBlock=p.prompts.find(x=>x.identifier==='custom_response_length');
- if(lengthBlock){
-  if(lengthBlock.name==='單次回覆字數')lengthBlock.name='正文字數';
-  if(lengthBlock.content==='每次回覆請控制在約 1200～1600 字。')lengthBlock.content='請將 <content> 標籤內的正文控制在約 1200～1600 字；此字數不包含 header、panel 等其他模組。';
- }
+
  // Never delete imported preset entries or rewrite their content when rendering.
  for(let spec of [
   {identifier:'worldInfoBefore',name:'World Info (before)',content:'',role:'system'},
@@ -343,8 +340,8 @@ function ensureDefaultWritingBlocks(p){
   {identifier:'worldInfoAfter',name:'World Info (after)',content:'',role:'system'},
   {identifier:'dialogueExamples',name:'Chat Examples',content:'',role:'system'},
   {identifier:'chatHistory',name:'Chat History',content:'',role:'system'},
-  {identifier:'custom_zh_tw_output',name:'繁體中文輸出',content:'請使用繁體中文（zh-TW）撰寫所有回覆。'},
-  {identifier:'custom_response_length',name:'正文字數',content:'請將 <content> 標籤內的正文控制在約 1200～1600 字；此字數不包含 header、panel 等其他模組。'}
+  {identifier:'custom_zh_tw_output',name:'輸出語言',content:'請使用繁體中文zh-TW'},
+  {identifier:'custom_response_length',name:'正文字數',content:'正文約 1200～1600 字'}
  ]){
   if(!p.prompts.some(x=>x.identifier===spec.identifier))p.prompts.push({...spec,role:'system'});
   if(!order.some(x=>(x.identifier||x)===spec.identifier)){
